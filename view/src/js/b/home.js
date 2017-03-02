@@ -34,7 +34,7 @@ require(['../require-config'], function() {
                     scroll_more.scroll_more(this.get_moredata);
                 },
                 updated: function() {
-                    scroll_more.scroll_data.body_height = Math.floor($('body').height()+90).toFixed(0);
+                    scroll_more.scroll_data.body_height = Math.floor($('body').height() + 90).toFixed(0);
                     console.log('AJAX:body_height==' + scroll_more.scroll_data.body_height);
                 },
                 methods: {
@@ -264,7 +264,7 @@ require(['../require-config'], function() {
                                     "prepaid_times": 55 // 储值次数, 注意是次数
                                 }
                             ],
-                        },{
+                        }, {
                             "start_time": "2016-09-22 11:22:33", // 活动开始时间
                             "end_time": "2016-10-23 22:22:22", // 活动结束时间
                             "activity_id": 1234, // 活动ID
@@ -314,7 +314,7 @@ require(['../require-config'], function() {
                                     "prepaid_times": 55 // 储值次数, 注意是次数
                                 }
                             ],
-                        },{
+                        }, {
                             "start_time": "2016-09-22 11:22:33", // 活动开始时间
                             "end_time": "2016-10-23 22:22:22", // 活动结束时间
                             "activity_id": 1234, // 活动ID
@@ -364,7 +364,7 @@ require(['../require-config'], function() {
                                     "prepaid_times": 55 // 储值次数, 注意是次数
                                 }
                             ],
-                        },{
+                        }, {
                             "start_time": "2016-09-22 11:22:33", // 活动开始时间
                             "end_time": "2016-10-23 22:22:22", // 活动结束时间
                             "activity_id": 1234, // 活动ID
@@ -414,7 +414,7 @@ require(['../require-config'], function() {
                                     "prepaid_times": 55 // 储值次数, 注意是次数
                                 }
                             ],
-                        },{
+                        }, {
                             "start_time": "2016-09-22 11:22:33", // 活动开始时间
                             "end_time": "2016-10-23 22:22:22", // 活动结束时间
                             "activity_id": 1234, // 活动ID
@@ -464,7 +464,7 @@ require(['../require-config'], function() {
                                     "prepaid_times": 55 // 储值次数, 注意是次数
                                 }
                             ],
-                        },{
+                        }, {
                             "start_time": "2016-09-22 11:22:33", // 活动开始时间
                             "end_time": "2016-10-23 22:22:22", // 活动结束时间
                             "activity_id": 1234, // 活动ID
@@ -514,7 +514,7 @@ require(['../require-config'], function() {
                                     "prepaid_times": 55 // 储值次数, 注意是次数
                                 }
                             ],
-                        },{
+                        }, {
                             "start_time": "2016-09-22 11:22:33", // 活动开始时间
                             "end_time": "2016-10-23 22:22:22", // 活动结束时间
                             "activity_id": 1234, // 活动ID
@@ -577,7 +577,7 @@ require(['../require-config'], function() {
                             _this.action_pos += _this.action_count;
                             scroll_more.scroll_data.scroll_if = true;
                         }
-                        scroll_more.scroll_data.body_height = Math.floor($('body').height()+90).toFixed(0);
+                        scroll_more.scroll_data.body_height = Math.floor($('body').height() + 90).toFixed(0);
                         $('.load').hide();
                         console.log('AJAX:scroll_if==' + scroll_more.scroll_data.scroll_if);
                         console.log('AJAX:nomor_show==' + scroll_more.scroll_data.nomor_show);

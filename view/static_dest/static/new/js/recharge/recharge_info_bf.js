@@ -1,47 +1,49 @@
-require(['../require-config'], function() {
-    require(["zepto", "yanzheng", "add_bounced", "ajax_rule", "iosselect", "date_day"], function($, yanzheng, add_bounced, ajax_rule, iosselect, date_day) {
-        $(function() {
-            $('.js_bindinfo').get(0) && (~ function() {
-                $(document).ready(function() {
+"use strict";
+
+require(['../require-config'], function () {
+    require(["zepto", "yanzheng", "add_bounced", "ajax_rule", "iosselect", "date_day"], function ($, yanzheng, add_bounced, ajax_rule, iosselect, date_day) {
+        $(function () {
+            $('.js_bindinfo').get(0) && ~function () {
+                $(document).ready(function () {
                     //获取 grid_index-----需要增加
                     //获取店铺名称--需要增加
                     var data_name = {
-                        'h': yanzheng.get_hash('h'),
+                        'h': yanzheng.get_hash('h')
                     };
                     //ajax_rule.ajax_rule('/prepaid/v1/api/c/merchant_info', 'GET', 'json', data_name, '.zheceng', get_shopname);                
                     //获取当前用户个人信息-show
                     var data_message = {
                         'c': yanzheng.get_hash('c'),
-                        'h': yanzheng.get_hash('h'),
+                        'h': yanzheng.get_hash('h')
                     };
                     //ajax_rule.ajax_rule('/prepaid/v1/api/c/bind', 'GET', 'json', data_message, '.zheceng1', get_message);
                 });
-            }());
-            $('.js_bindinfo_confirm').get(0) && (~ function() {
-                $(document).ready(function() {
+            }();
+            $('.js_bindinfo_confirm').get(0) && ~function () {
+                $(document).ready(function () {
                     //获取 grid_index-----需要增加
                     //获取店铺名称--需要增加
                     var data_name = {
-                        'h': yanzheng.get_hash('h'),
+                        'h': yanzheng.get_hash('h')
                     };
                     //ajax_rule.ajax_rule('/prepaid/v1/api/b/merchant_info', 'GET', 'json', data_name, '.zheceng', get_shopname);                
                     //获取储值账户
                     var data_tel = {
-                        'c': yanzheng.get_hash('c'),
+                        'c': yanzheng.get_hash('c')
                     };
                     //ajax_rule.ajax_rule('/prepaid/v1/api/c/bindinfo', 'GET', 'json', data_tel, '.zheceng1', get_tel);                
                     //获取当前用户个人信息-show
                     var data_message = {
                         'c': yanzheng.get_hash('c'),
-                        'h': yanzheng.get_hash('h'),
+                        'h': yanzheng.get_hash('h')
                     };
                     //ajax_rule.ajax_rule('/prepaid/v1/api/c/bind', 'GET', 'json', data_message, '.zheceng', get_message);
                 });
-            }());
+            }();
             //填写信息----------------------------------------------------------------------------------------------------------------------------------------------------
 
             //获取验证码
-            $('#get_identyCode').on('click', function() {
+            $('#get_identyCode').on('click', function () {
                 //验证
                 yanzheng.tel_test('.js_phone');
                 if ($('.js_phone').parents('dl').hasClass('error_data')) {
@@ -52,7 +54,7 @@ require(['../require-config'], function() {
                     var url = '/prepaid/v1/api/c/captcha';
                     var data = {
                         'c': yanzheng.get_hash('c'),
-                        'mobile': mobile_val,
+                        'mobile': mobile_val
                     };
                     //获取验证码--todo--show
                     //ajax_rule.ajax_rule(url, 'GET', 'json', data, '.zheceng', get_code);
@@ -60,13 +62,13 @@ require(['../require-config'], function() {
                 }
             });
             //倒计时不可点击
-            $('.js_show_entycode').on('click', function() {
+            $('.js_show_entycode').on('click', function () {
                 $('.alert_con').show();
                 $('.alert_con .alert_con_br').html("一分钟后再次获取！");
                 $('.zheceng').show();
             });
             //点击生日
-            $('.js_message_birth').on('click', function() {
+            $('.js_message_birth').on('click', function () {
                 var showDom = document.querySelector('.js_message_birth');
                 var year = showDom.dataset['year'];
                 var month = showDom.dataset['month'];
@@ -82,7 +84,7 @@ require(['../require-config'], function() {
                     twoLevelId: month,
                     threeLevelId: day,
                     //showLoading: true,
-                    callback: function(year_data, month_data, day_data) {
+                    callback: function callback(year_data, month_data, day_data) {
                         showDom.dataset['year'] = year_data.id;
                         showDom.dataset['month'] = month_data.id;
                         showDom.dataset['day'] = day_data.id;
@@ -92,7 +94,7 @@ require(['../require-config'], function() {
                 });
             });
             //点击填写信息确定按钮
-            $('.js_alert_message').on('click', function() {
+            $('.js_alert_message').on('click', function () {
                 var first = $('.js_hidden_first').val();
                 var name = $('.js_message_name').val();
                 var tel = $('.js_message_tel').val();
@@ -102,7 +104,7 @@ require(['../require-config'], function() {
                 var url = '/prepaid/v1/api/c/captcha';
                 var data_code = {
                     'captcha': code,
-                    'mobile': tel,
+                    'mobile': tel
                 };
                 //获取验证码--todo--show
                 //ajax_rule.ajax_rule(url, 'POST', 'json', data_code, '.zheceng', get_code_succ,get_codeerror);
@@ -132,7 +134,7 @@ require(['../require-config'], function() {
                     'grid_index': $('.js_grid_index').val(),
                     'name': name,
                     'mobile': tel,
-                    'birthday': birth,
+                    'birthday': birth
                 };
                 //ajax_rule.ajax_rule('/prepaid/v1/api/c/recharge', 'POST', 'json', data_cz, '.zheceng1', get_rechargesub);
             });
@@ -200,9 +202,7 @@ require(['../require-config'], function() {
                 $('.js_message_tel').val(return_data.mobile);
             }
             //验证码验证正确
-            function get_code_succ() {
-
-            }
+            function get_code_succ() {}
             //验证码输入错误
             function get_codeerror() {
                 $(id).parents('dl').addClass('error_data');
@@ -227,8 +227,7 @@ require(['../require-config'], function() {
             add_bounced.add_bounced();
             //关闭弹框
             add_bounced.close_tip();
-
-        })
+        });
     });
 });
 //倒计时60s

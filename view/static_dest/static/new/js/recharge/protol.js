@@ -1,3 +1,5 @@
+'use strict';
+
 function hideMenu() {
     WeixinJSBridge.call('hideOptionMenu');
     WeixinJSBridge.call('hideToolbar');
@@ -12,14 +14,14 @@ if (typeof WeixinJSBridge == "undefined") {
 } else {
     hideMenu();
 }
-require(['../require-config'], function() {
-    require(["zepto", "ajax_rule"], function($, ajax_rule) {
-        $(function() {
+require(['../require-config'], function () {
+    require(["zepto", "ajax_rule"], function ($, ajax_rule) {
+        $(function () {
             //储值协议----------------------------------------------------------------------------------------------------------------------------------------------------           
-            $(document).ready(function() {                
+            $(document).ready(function () {
                 //获取商家名称
                 var data_merchant = {
-                    'h': get_hash('h'),
+                    'h': get_hash('h')
                 };
                 ajax_rule.ajax_rule('/prepaid/v1/api/c/merchant_info', 'GET', 'json', data_merchant, '.zheceng', get_merchant);
 
@@ -28,9 +30,9 @@ require(['../require-config'], function() {
                     'c': get_hash('c'),
                     'h': get_hash('h'),
                     'o': get_hash('o'),
-                    'grid_index': '1',
+                    'grid_index': '1'
                 };
-                ajax_rule.ajax_rule('/prepaid/v1/api/c/recharge/before', 'GET', 'json', data_before, '.zheceng2', get_bindinfo_if);       
+                ajax_rule.ajax_rule('/prepaid/v1/api/c/recharge/before', 'GET', 'json', data_before, '.zheceng2', get_bindinfo_if);
             });
             //获取商家名称
             function get_merchant(return_data) {
@@ -40,20 +42,17 @@ require(['../require-config'], function() {
             //判断是否调用--储值账户
             function get_bindinfo_if(return_data) {
                 var recharge_num = return_data.recharge;
-                if (recharge_num == '0') {
-                    
-                } else {
+                if (recharge_num == '0') {} else {
                     var data_bindinfo = {
-                        'c': get_hash('c'),
+                        'c': get_hash('c')
                     };
                     ajax_rule.ajax_rule(' /prepaid/v1/api/c/bindinfo', 'GET', 'json', data_bindinfo, '.zheceng1', get_bindinfo);
                 }
-
             }
             //获取储值账户
             function get_bindinfo(return_data) {
                 var mobile = return_data.mobile;
-                $('.js_mobile').text(mobile);              
+                $('.js_mobile').text(mobile);
             }
             //通用--------------------------------------------------------------------------------------------------------
             //获取url的指定hash值
@@ -72,6 +71,6 @@ require(['../require-config'], function() {
                     }
                 }
             }
-        })
+        });
     });
 });

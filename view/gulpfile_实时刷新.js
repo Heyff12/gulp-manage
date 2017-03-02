@@ -24,21 +24,24 @@ var gulp = require('gulp'), //基础库
     runSequence = require('run-sequence'), //按顺序执行
     rev = require('gulp-rev'), //- 对文件名加MD5后缀
     revCollector = require('gulp-rev-collector'), //- 路径html替换
-    connect = require('gulp-connect'), //搭建服务器并自动更新更改--本文件没用使用，而是用的browser-sync
-    livereload = require('gulp-livereload'), //livereload,可以合上面配合使用（暂时没用）
-    browserSync = require('browser-sync').create(), //页面实时刷新
-    babel = require("gulp-babel"), //编译es6
+    connect = require('gulp-connect'), //搭建服务器并自动更新更改
+    livereload = require('gulp-livereload'), //livereload,可以合上面配合使用
 
+    
+
+    
     //-------------------以下未使用------------------------------------------------------------------
     tinylr = require('tiny-lr'), //livereload
     server = tinylr(),
     port = 35729,
+    
     useref = require('gulp-useref'), //资源内文件合并替换
     revReplace = require('gulp-rev-replace'),
     rrev = require('gulp-rev-append'), //给页面的引用添加版本号，清除页面引用缓存
     shell = require('gulp-shell'),
     amdOptimize = require('amd-optimize'), //打包 require.js 模块依赖
     fs = require('fs'),
+    browserSync = require('browser-sync'), //同步浏览器更新
     changed = require('gulp-changed'), //检测变化的文件
     jscs = require('gulp-jscs'); //代码风格检测
 var file_road = {
@@ -89,7 +92,7 @@ var banner = ['/**',
     ' */',
     ''
 ].join('\n');
-// connect启动本地服务------------------------------------------------------------------------------------------------------------------------------------------
+// 启动本地服务------------------------------------------------------------------------------------------------------------------------------------------
 gulp.task('webserver', function() {
     connect.server({
         livereload: true,
@@ -114,7 +117,7 @@ gulp.task('css', function() {
         .pipe(gulp.dest(file_road.cssDst_end)) //最终目录
         .pipe(rev.manifest())
         .pipe(gulp.dest('rev/css'))
-        .pipe(browserSync.stream());
+        .pipe(connect.reload());
 
 });
 
@@ -143,7 +146,7 @@ gulp.task('js', function() {
         }))
         .pipe(header(banner, { pkg: pkg })) //增加头部注释
         .pipe(gulp.dest(file_road.jsDst_end)) //最终目录
-        .pipe(browserSync.stream());
+        .pipe(connect.reload());
 });
 //替换显示require-config的路径
 gulp.task('reqconjs', function() {
@@ -153,15 +156,12 @@ gulp.task('reqconjs', function() {
         .pipe(replace('../../../static_dest/static', '/qudao/v1/static'))
         .pipe(replace('../../static_dest/static', '/qudao/v1/static'))
         .pipe(gulp.dest(file_road.jsDst_end))
-        .pipe(browserSync.stream())
+        .pipe(connect.reload())
 });
 //生存版本号
 gulp.task('jsnum', function() {
     gulp.src(file_road.jsNum_src)
         .pipe(jshint.reporter('default')) //代码检测
-        .pipe(babel({
-            presets: ['es2015']
-        }))
         .pipe(gulp.dest(file_road.jsDst)) //本地目录--未压缩
         .pipe(rev()) //增加版本号
         .pipe(uglify({ //todo暂时隐藏压缩
@@ -174,7 +174,7 @@ gulp.task('jsnum', function() {
         .pipe(gulp.dest(file_road.jsDst_end)) //最终目录
         .pipe(rev.manifest()) //生存json文件
         .pipe(gulp.dest('rev/js'))
-        .pipe(browserSync.stream());
+        .pipe(connect.reload());
 });
 //第二次不执行--start
 // gulp.task('js',function() {
@@ -189,7 +189,7 @@ gulp.task('jsnum', function() {
 //             mangle: { except: ['require', 'exports', 'module', '$'] } //排除混淆关键字
 //         }))
 //         .pipe(header(banner, { pkg: pkg })) //增加头部注释
-//         .pipe(browserSync.reload({stream:true}))
+//         .pipe(connect.reload())
 //         .pipe(gulp.dest(file_road.jsDst_end)); //最终目录
 // });
 // gulp.task('js', ['js_mid'], function() {
@@ -201,7 +201,7 @@ gulp.task('jsnum', function() {
 //             mangle: { except: ['require', 'exports', 'module', '$'] } //排除混淆关键字
 //         }))
 //         .pipe(header(banner, { pkg: pkg })) //增加头部注释
-//         .pipe(browserSync.reload({stream:true}))
+//         .pipe(connect.reload())
 //         .pipe(gulp.dest(file_road.jsDst_end)); //最终目录
 // });
 // gulp.task('js_mid', function() {
@@ -222,7 +222,7 @@ gulp.task('images', function() {
         }))
         .pipe(gulp.dest(file_road.imgDst)) //本地目录
         .pipe(gulp.dest(file_road.imgDst_end)) //最终目录
-        .pipe(browserSync.stream());
+        .pipe(connect.reload());
 });
 
 // 清空图片、样式、js---最终使用del------------------------------------------------------------------------------------------------------------------------------------------
@@ -241,7 +241,7 @@ gulp.task('del', function(cb) {
 //         .pipe(header('# coding: utf-8 \n')) //增加头部代码
 //         .pipe(replace('../../../static_dest/static', '/qudao/v1/static'))
 //         .pipe(replace('../../static_dest/static', '/qudao/v1/static'))
-//         .pipe(browserSync.reload({stream:true}))
+//         .pipe(connect.reload())
 //         .pipe(gulp.dest(file_road.htmlDst_mid))
 // });
 gulp.task('html', function() {
@@ -251,18 +251,12 @@ gulp.task('html', function() {
         .pipe(replace('../../../static_dest/static', '/qudao/v1/static'))
         .pipe(replace('../../static_dest/static', '/qudao/v1/static'))
         .pipe(gulp.dest(file_road.htmlDst))
-        .pipe(browserSync.stream())
+        .pipe(connect.reload())
 });
 // 监听任务 运行语句 gulp watch------------------------------------------------------------------------------------------------------------------------------------------
 gulp.task('watch', function() {
     //livereload启用
     //livereload.listen();
-    browserSync.init({
-        server: {
-            baseDir: "./",
-            //files: ['./html/**/*.html', './static_dest/static/new/css/**/*.css', './static_dest/static/new/js/**/*.js'],
-        },
-    });
 
     // 监听html
     gulp.watch(file_road.w_htmlSrc, ['html']);
@@ -325,14 +319,9 @@ gulp.task('static', function(done) {
 //#########################先执行 gulp del  清理文件,再执行gulp static编译文件,上传到服务器时，再执行一次 gulp html(增加上css版本号)//
 //#########################先执行 gulp del  清理文件,再执行gulp static编译文件,上传到服务器时，再执行一次 gulp html(增加上css版本号)//
 //开发构建--未执行['jshint'],
-// gulp.task('dev', function(done) {
-//     runSequence(
-//         ['webserver'], ['images', 'css'], ['js', 'reqconjs', 'jsnum'], ['html'], ['watch'],
-//         done);
-// });//执行--connect启用服务器及时刷新
 gulp.task('dev', function(done) {
     runSequence(
-        ['images', 'css'], ['js', 'reqconjs', 'jsnum'], ['html'], ['watch'],
+        ['webserver'], ['images', 'css'], ['js', 'reqconjs', 'jsnum'], ['html'], ['watch'],
         done);
 });
 gulp.task('default', ['dev']);
