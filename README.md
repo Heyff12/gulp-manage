@@ -42,7 +42,11 @@ gulp html
 
 3、图片压缩      
 
-4、html页面内容的替换（增加头部代码'# coding: utf-8 \n'；替换css和js及img的路径，并增加css和js版本号）  
+4、html页面内容的替换（增加头部代码'# coding: utf-8 \n'；替换css和js及img的路径，并增加css和js版本号）     
+
+5、页面自动刷新（更改html/css/js）      
+
+6、将es6语法转出es5输出  
  
 
 
