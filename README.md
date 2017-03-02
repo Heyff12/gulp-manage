@@ -46,7 +46,10 @@ gulp html
 
 5、页面自动刷新（更改html/css/js）      
 
-6、将es6语法转出es5输出  
+6、将es6语法转出es5输出 
+  
+7、px与rem像素的自适应 
+
  
 
 
