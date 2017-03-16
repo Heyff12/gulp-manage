@@ -28,8 +28,7 @@ var gulp = require('gulp'), //基础库
     livereload = require('gulp-livereload'), //livereload,可以合上面配合使用（暂时没用）
     browserSync = require('browser-sync').create(), //页面实时刷新
     babel = require("gulp-babel"), //编译es6
-
-    sourcemaps = require('gulp-sourcemaps'),//生成map文件
+    sourcemaps = require('gulp-sourcemaps'),//生成map文件,便于查看压缩文件的错误出处
 
     //-------------------以下未使用------------------------------------------------------------------
     tinylr = require('tiny-lr'), //livereload
