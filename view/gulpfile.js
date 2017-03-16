@@ -29,6 +29,8 @@ var gulp = require('gulp'), //基础库
     browserSync = require('browser-sync').create(), //页面实时刷新
     babel = require("gulp-babel"), //编译es6
 
+    sourcemaps = require('gulp-sourcemaps'),//生成map文件
+
     //-------------------以下未使用------------------------------------------------------------------
     tinylr = require('tiny-lr'), //livereload
     server = tinylr(),
@@ -79,6 +81,8 @@ var file_road = {
 
     // copy_src: './static_dest/static/new/**/*',
     // copy_dest: '../bin/static/new',
+    map_css:'./maps/css',
+    map_js:'./maps/js',
 };
 var pkg = require('./package.json');
 var banner = ['/**',
@@ -100,6 +104,7 @@ gulp.task('webserver', function() {
 gulp.task('css', function() {
     var processors = [px2rem({ remUnit: 37.5 })];
     gulp.src(file_road.cssSrc)
+        .pipe(sourcemaps.init())
         .pipe(less({ style: 'expanded' }))
         .pipe(autoprefixer({
             browsers: ['last 2 versions', 'Android >= 4.0', 'last 2 Explorer versions', 'last 3 Safari versions', 'Firefox >= 20', '> 5%'],
@@ -108,9 +113,10 @@ gulp.task('css', function() {
         }))
         .pipe(postcss(processors)) //--变得有点小
         .pipe(header(banner, { pkg: pkg })) //增加头部注释
+        .pipe(minifycss()) //todo暂时隐藏压缩
+        .pipe(sourcemaps.write(file_road.map_css))
         .pipe(gulp.dest(file_road.cssDst)) //本地目录
         .pipe(rev())
-        .pipe(minifycss()) //todo暂时隐藏压缩
         .pipe(gulp.dest(file_road.cssDst_end)) //最终目录
         .pipe(rev.manifest())
         .pipe(gulp.dest('rev/css'))
@@ -133,8 +139,8 @@ gulp.task('jshint', function() {
 // js处理------------------------------------------------------------------------------------------------------------------------------------------
 gulp.task('js', function() {
     gulp.src(file_road.jsSrc)
+        .pipe(sourcemaps.init())
         .pipe(jshint.reporter('default')) //代码检测
-        .pipe(gulp.dest(file_road.jsDst)) //本地目录--未压缩
         .pipe(uglify({ //todo暂时隐藏压缩
             mangle: false, //类型：Boolean 默认：true 是否修改变量名
             compress: true, //类型：Boolean 默认：true 是否完全压缩
@@ -142,6 +148,8 @@ gulp.task('js', function() {
             mangle: { except: ['require', 'exports', 'module', '$'] } //排除混淆关键字
         }))
         .pipe(header(banner, { pkg: pkg })) //增加头部注释
+        .pipe(sourcemaps.write(file_road.map_js))
+        .pipe(gulp.dest(file_road.jsDst)) //本地目录--未压缩
         .pipe(gulp.dest(file_road.jsDst_end)) //最终目录
         .pipe(browserSync.stream());
 });
@@ -158,12 +166,11 @@ gulp.task('reqconjs', function() {
 //生存版本号
 gulp.task('jsnum', function() {
     gulp.src(file_road.jsNum_src)
+        .pipe(sourcemaps.init())
         .pipe(jshint.reporter('default')) //代码检测
         .pipe(babel({
             presets: ['es2015']
         }))
-        .pipe(gulp.dest(file_road.jsDst)) //本地目录--未压缩
-        .pipe(rev()) //增加版本号
         .pipe(uglify({ //todo暂时隐藏压缩
             mangle: false, //类型：Boolean 默认：true 是否修改变量名
             compress: true, //类型：Boolean 默认：true 是否完全压缩
@@ -171,6 +178,9 @@ gulp.task('jsnum', function() {
             mangle: { except: ['require', 'exports', 'module', '$'] } //排除混淆关键字
         }))
         .pipe(header(banner, { pkg: pkg })) //增加头部注释
+        .pipe(sourcemaps.write(file_road.map_js))
+        .pipe(gulp.dest(file_road.jsDst)) //本地目录--未压缩
+        .pipe(rev()) //增加版本号
         .pipe(gulp.dest(file_road.jsDst_end)) //最终目录
         .pipe(rev.manifest()) //生存json文件
         .pipe(gulp.dest('rev/js'))

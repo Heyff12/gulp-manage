@@ -1,6 +1,7 @@
 require(['../require-config'], function() {
     require(["zepto", "ajax_rule", "yanzheng", "date_change", "scroll_more", "if_menu", "native"], function($, ajax_rule, yanzheng, date_change, scroll_more, if_menu, native) {
         $(function() {
+            
             //添加图标和没有更多文字提示
             scroll_more.add_load_img('.section_action');
             var demo = new Vue({

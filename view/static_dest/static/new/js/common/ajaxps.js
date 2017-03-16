@@ -1,10 +1,8 @@
-define(['yanzheng'], function(yanzheng){　
-    //获取储值规则
-    function get_rule_detail() {
-        // console.log(yanzheng.get_hash('c'));
-        // console.log(yanzheng.get_hash('h'));
-    }
-    return {
-        get_rule_detail: get_rule_detail,
-    };　
-});
+/**
+ * rechargeB - rechargeB详情
+ * @version v1.0.0
+ * @link 
+ * @license ISC
+ */
+define(["yanzheng"],function(n){function e(){}return{get_rule_detail:e}});
+//# sourceMappingURL=../maps/js/common/ajaxps.js.map

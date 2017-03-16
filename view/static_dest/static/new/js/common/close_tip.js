@@ -1,16 +1,8 @@
-define(function() {　
-    var close_tip = function() {
-        //关闭弹框
-        $('.js_alert_con_close').on('click', function() {
-            $('.alert_con').hide();
-            // $('.alert_con .alert_con_br').html();
-            $('.zheceng').hide();
-            $('.zheceng1').hide();
-            $('.zheceng2').hide();
-        });
-    }
-
-    return {
-        close_tip: close_tip
-    };　
-});
+/**
+ * rechargeB - rechargeB详情
+ * @version v1.0.0
+ * @link 
+ * @license ISC
+ */
+define(function(){var e=function(){$(".js_alert_con_close").on("click",function(){$(".alert_con").hide(),$(".zheceng").hide(),$(".zheceng1").hide(),$(".zheceng2").hide()})};return{close_tip:e}});
+//# sourceMappingURL=../maps/js/common/close_tip.js.map
