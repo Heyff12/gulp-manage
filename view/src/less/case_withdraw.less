@@ -1,0 +1,182 @@
+@import "./common/common";
+
+
+/* ==================提现操作页============================================================ */
+
+section.section_diff {
+    width: 100%;
+    margin: 0 auto;
+}
+
+dl.formbg {
+    background: white;
+    border-top: @border_width solid @border_color;
+    border-bottom: @border_width solid @border_color;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.3rem @padding;
+    margin: 10px auto 0;
+    font-size: @font_size;
+    line-height: 0.6rem;
+    &:nth-child(1){
+        margin-top: 15px;
+    }
+}
+
+dl.dl_bank {
+    line-height: 1rem;
+}
+
+dl.dl_bank dt {
+    float: left;
+    width: 30%;
+}
+
+dl.dl_bank dd {
+    float: left;
+    width: 70%;
+}
+
+dl.dl_crash {
+    line-height: 0.6rem;
+}
+
+dl.dl_crash dd.diff_txdd {
+    font-size: 0.8rem;
+    line-height: 1.6rem;
+    border-bottom: @border_width solid @border_color;
+}
+
+input.diff_crash {
+    height: 1.6rem;
+    line-height: 1.6rem;
+    font-size: 1.1rem;
+    position: relative;
+    top: 0;
+    left: 0.2rem;
+    width: 80%;
+    border: none;
+    background: none;
+}
+
+dl.dl_crash dd.grey {
+    margin-top: 0.3rem;
+}
+
+dl.dl_crash dd.red_error {
+    margin-top: 0.3rem;
+    display: none;
+    color: #db2f22;
+}
+
+dl.dl_crash dd.grey_tips {
+    display: none;
+}
+
+p.title_c {
+    width: 92%;
+    margin: 0 0 0 4%;
+    font-size: 0.34rem;
+    text-align: left;
+    line-height: 0.8rem;
+}
+
+p.title_d {
+    width: 92%;
+    margin: 0.2rem 0 0 4%;
+    font-size: 0.34rem;
+    text-align: center;
+    line-height: 0.8rem;
+}
+
+span.diff_sub.wid_92 {
+    width: 92%;
+    margin: 0.2rem 0 0 4%;
+}
+
+span.diff_sub.diff_sub_disa {
+    background: #9d9fa5;
+}
+
+span.diff_sub.wid_92.span_hide {
+    display: none;
+}
+
+span.diff_sub {
+    display: inline-block;
+    width: 100%;
+    height: 44px;
+    text-align: center;
+    line-height: 44px;
+    background: @orange;
+    color: white;
+    border-radius: @border_radius;
+    font-size: 17px;
+    margin: 0.1rem 0 0.5rem;
+}
+
+span.diff_sub.disa {
+    background: #9d9fa5;
+}
+
+
+/*密码框-----------------------------------------------*/
+
+.pass_close {}
+
+.alert_con_t span {
+    position: absolute;
+    right: @padding;
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    font-size: 0.6rem;
+}
+
+p.title_g {
+    font-size: 0.8rem;
+    text-align: center;
+    line-height: 0.8rem;
+    font-family: Helvetica;
+}
+
+p.title_g span {
+    font-size: 1rem;
+}
+
+p.title_h {
+    width: 100%;
+    margin: 0rem 0 0 0%;
+    font-size: 0.34rem;
+    text-align: center;
+    line-height: 0.5rem;
+}
+
+input.alert_crashpass {
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    height: 44px;
+    line-height: 44px;
+    padding: 0 2%;
+    font-size: @font_size;
+    background: none;
+    border: @border_width solid @border_color;
+    border-radius: @border_radius;
+    margin: @padding 0 0.2rem;
+}
+
+.alert_con_footer {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px 20px 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border-top: @border_width solid @border_color;
+}
+
+.alert_con_footer span.diff_sub {
+    margin: 0;
+}
+
+
